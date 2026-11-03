@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team Contribution</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --burgundy: #6b1f2e;
+      --burgundy-dark: #4a1420;
+      --burgundy-light: #8f2b3f;
+      --burgundy-soft: #f4e6e9;
+      --cream: #faf7f5;
+      --text: #2b1a1e;
+      --muted: #7a6568;
+      --border: #e6d9dc;
+      --shadow: 0 4px 18px rgba(107,31,46,0.10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background:
+        radial-gradient(circle at 15% 0%, rgba(143,43,63,0.10), transparent 45%),
+        var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 40px 20px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      padding: 40px 36px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      color: var(--burgundy-dark);
+      font-size: 1.7rem;
+      margin: 0 0 8px;
+      letter-spacing: -0.02em;
+    }
+    .sub { color: var(--muted); font-size: 0.92rem; margin: 0 0 28px; }
+    #load-contributor {
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--burgundy), var(--burgundy-light));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 24px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(107,31,46,0.28);
+      transition: transform .08s, background .15s;
+    }
+    #load-contributor:hover { background: linear-gradient(135deg, var(--burgundy-dark), var(--burgundy)); }
+    #load-contributor:active { transform: scale(0.98); }
+    #contributor-student-id {
+      margin: 24px 0;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--burgundy);
+      min-height: 1.4em;
+    }
+    a {
+      display: inline-block;
+      margin-top: 8px;
+      color: var(--burgundy);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.9rem;
+      padding: 10px 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      transition: all .15s;
+    }
+    a:hover { background: var(--burgundy-soft); border-color: var(--burgundy-light); }
+    a::before { content: '← '; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Team Contribution</h1>
+    <p class="sub">Click below to reveal the contributor's student ID</p>
+    <button id="load-contributor">Show Contributor</button>
+    <p id="contributor-student-id"></p>
+    <a href="index.html">Back to Task Manager</a>
+  </div>
+
+  <script>
+    document.getElementById('load-contributor').addEventListener('click', async () => {
+      const el = document.getElementById('contributor-student-id');
+      el.textContent = 'Loading…';
+      try {
+        const res = await fetch('contribution.json');
+        if (!res.ok) throw new Error('Could not load contribution.json');
+        const data = await res.json();
+        el.textContent = 'Contributor Student ID: ' + data.contributorStudentId;
+      } catch (err) {
+        el.textContent = 'Error: ' + err.message;
+      }
+    });
+  </script>
+</body>
+</html>
