@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task Manager</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 0 15px; }
+    .task-item { border: 1px solid #ccc; padding: 12px; margin-bottom: 10px; border-radius: 6px; }
+    .task-item.completed .task-title { text-decoration: line-through; color: #888; }
+    #status-message { margin: 10px 0; color: #d9534f; font-weight: bold; }
+    .task-actions { margin-top: 10px; display: flex; gap: 8px; }
+    button { cursor: pointer; padding: 6px 12px; }
+    input[type="text"], textarea { width: 100%; box-sizing: border-box; margin-bottom: 8px; padding: 8px; }
+  </style>
+</head>
+<body>
+
+  <h1>Task Manager</h1>
+  <p>Student ID: <span id="student-id">72786</span></p>
+
+  <p><a id="contribution-link" href="contribution.html">View Team Contribution</a></p>
+
+  <div id="status-message"></div>
+
+  <form id="task-form">
+    <input type="hidden" id="edit-task-id" value="">
+    <div>
+      <input type="text" id="task-title" placeholder="Task Title" required>
+    </div>
+    <div>
+      <textarea id="task-description" placeholder="Task Description" rows="3"></textarea>
+    </div>
+    <button type="submit" id="task-submit">Add Task</button>
+    <button type="button" id="cancel-edit" style="display: none;">Cancel</button>
+  </form>
+
+  <h2>Tasks</h2>
+  <div id="task-list"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
